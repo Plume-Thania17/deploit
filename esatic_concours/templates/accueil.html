@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESATIC CONCOURS - Accueil</title>
+    <style>
+        :root {
+            --color-primary: 100 181 246; /* Bleu ciel */
+            --color-secondary: 96 125 139; /* Gris bleuté */
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f5f9fc, #f0f2f5);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        header {
+            padding: 1.5rem 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: rgb(var(--color-primary));
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav a {
+            color: rgb(var(--color-secondary));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: rgb(var(--color-primary));
+        }
+        
+        .hero {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-title {
+            color: rgb(var(--color-primary));
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-description {
+            color: rgb(var(--color-secondary));
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background-color: rgb(var(--color-primary));
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(var(--color-primary), 0.9);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            background-color: rgba(var(--color-primary), 0.1);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon svg {
+            color: rgb(var(--color-primary));
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: rgb(var(--color-secondary));
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: #4b5563;
+        }
+        
+        .info-section {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-title {
+            font-size: 1.5rem;
+            color: rgb(var(--color-primary));
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .step-number {
+            background-color: rgb(var(--color-primary));
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: rgb(var(--color-secondary));
+        }
+        
+        footer {
+            background-color: white;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: rgb(var(--color-secondary));
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links a:hover {
+            color: rgb(var(--color-primary));
+        }
+        
+        .copyright {
+            color: rgb(var(--color-secondary));
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">ESATIC CONCOURS</div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Accueil</a></li>
+                        <li><a href="inscription.html">Concours</a></li>
+                        <li><a href="inscription.html">S'inscrire</a></li>
+                        <li><a href="*">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Bienvenue au Concours ESATIC</h1>
+                <p class="hero-description">
+                    L'École Supérieure Africaine des Technologies de l'Information et de la Communication ouvre ses portes aux futurs talents du numérique.
+                </p>
+                <a href="inscription.html" class="btn-primary">S'inscrire au concours</a>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <h3 class="feature-title">Formation d'excellence</h3>
+                <p class="feature-description">
+                    Des programmes académiques de haut niveau alignés sur les besoins du marché de l'emploi dans le domaine des TIC.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title">Recherche & Innovation</h3>
+                <p class="feature-description">
+                    Des laboratoires équipés pour favoriser l'innovation et la recherche dans les technologies de pointe.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="feature-title">Insertion professionnelle</h3>
+                <p class="feature-description">
+                    Un réseau de partenaires industriels qui facilite l'insertion professionnelle de nos diplômés.
+                </p>
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <h2 class="info-title">Comment s'inscrire au concours ?</h2>
+            <p>
+                Le processus d'inscription au concours d'entrée à l'ESATIC est simple et entièrement numérisé. Suivez ces étapes pour compléter votre candidature.
+            </p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Créez votre compte</h4>
+                        <p>Remplissez le formulaire d'inscription avec vos informations personnelles.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Téléchargez vos documents</h4>
+                        <p>Joignez les documents requis : diplômes, relevés de notes, pièce d'identité.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Validation et convocation</h4>
+                        <p>Recevez votre convocation pour les épreuves du concours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <h2 class="info-title">Dates importantes</h2>
+            <ul>
+                <li><strong>Ouverture des inscriptions :</strong> 15 juin 2025</li>
+                <li><strong>Clôture des inscriptions :</strong> 31 juillet 2025</li>
+                <li><strong>Épreuves écrites :</strong> 15 août 2025</li>
+                <li><strong>Publication des résultats :</strong> 30 août 2025</li>
+                <li><strong>Rentrée académique :</strong> 15 octobre 2025</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    © 2025 ESATIC - École Supérieure Africaine des Technologies de l'Information et de la Communication
+                </div>
+                <div class="footer-links">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 100 181 246; /* Bleu ciel */
+    --color-secondary: 96 125 139; /* Gris bleuté */
+    --color-accent: 16 185 129; /* Vert émeraude */
+    --color-neutral: 55 65 81; /* Gris foncé */
+    --color-base-100: 255 255 255; /* Blanc */
+    --color-base-200: 245 249 255; /* Bleu très clair */
+    --color-base-content: 31 41 55; /* Gris foncé */
+  }
+  
+  .dark {
+    --color-primary: 56 182 255; /* Bleu ciel plus vif */
+    --color-secondary: 120 144 156; /* Gris bleuté clair */
+    --color-accent: 20 184 166; /* Vert turquoise */
+    --color-neutral: 17 24 39; /* Gris très foncé */
+    --color-base-100: 17 24 39; /* Gris très foncé */
+    --color-base-200: 31 41 55; /* Gris foncé */
+    --color-base-content: 243 244 246; /* Gris très clair */
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6;
+  }
+}

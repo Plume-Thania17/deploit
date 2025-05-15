@@ -1,17 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="fr" data-theme="light">
 {% load static tailwind_tags %}
 <head>
     <meta charset="UTF-8">
-    <title>{%block titre %} ESATIC CONCOURS {%endblock%}</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %} ESATIC CONCOURS {% endblock %}</title>
     {% tailwind_css %}
-
+    <style>
+        :root {
+            --color-primary: 100 181 246; /* Bleu ciel */
+            --color-secondary: 96 125 139; /* Gris bleuté */
+        }
+        
+        body {
+            background-color: #f5f9fc; /* Fond très clair bleuté */
+        }
+        
+        .btn-primary {
+            background-color: rgb(var(--color-primary));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgb(var(--color-primary) / 0.9);
+        }
+    </style>
 </head>
-<body>
-
-    {% block content %}
-
-    {% endblock %}
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-gray-50">
+    <div class="container mx-auto px-4">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

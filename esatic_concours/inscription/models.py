@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 class Inscription(models.Model):
     CHOICES_TYPE = [
-        ('licence_twin', 'LICENCE TWIN'),
-        ('licence_srit', 'LICENCE SRIT'),
+        ('licence_twin', ' TWIN'),
+        ('licence_srit', 'SRIT'),
         ('master_informatique', 'MASTER INFORMATIQUE')
     ]
     id = models.AutoField(primary_key=True)
@@ -25,8 +25,11 @@ class Inscription(models.Model):
     numero_inscription = models.CharField(max_length=100, unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.numero_inscription:
-            self.numero_inscription = f"ESATIC-{self.concoursSouhaiter}-{self.id}"
+     if not self.numero_inscription:
+        super().save(*args, **kwargs)  # Sauvegarde d'abord pour obtenir un ID
+        self.numero_inscription = f"ESATIC-{self.concoursSouhaiter}-{self.id}"
+        super().save(*args, **kwargs)  # Sauvegarde à nouveau avec le numéro
+     else:
         super().save(*args, **kwargs)
 
     def __str__(self):
