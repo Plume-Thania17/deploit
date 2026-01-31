@@ -1,32 +1,299 @@
 {% extends 'base.html' %}
 
-{% block titre %}
-Inscription
+{% block title %}Inscription - ESATIC CONCOURS{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-container {
+        background-color: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+    
+    .form-label {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+    
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 2px solid #E3F2FD;
+        padding: 12px;
+        transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+    }
+    
+    .section-title {
+        color: var(--primary-blue);
+        border-bottom: 3px solid var(--primary-blue);
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+        margin-top: 30px;
+    }
+    
+    .required-field::after {
+        content: " *";
+        color: #dc3545;
+    }
+    
+    .file-upload-label {
+        cursor: pointer;
+        display: block;
+        padding: 20px;
+        border: 2px dashed var(--primary-blue);
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s;
+        background-color: #F5F9FC;
+    }
+    
+    .file-upload-label:hover {
+        background-color: var(--light-blue);
+        border-color: var(--dark-blue);
+    }
+    
+    .file-upload-label i {
+        font-size: 2rem;
+        color: var(--primary-blue);
+        margin-bottom: 10px;
+    }
+    
+    input[type="file"] {
+        display: none;
+    }
+    
+    .file-name {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: var(--text-light);
+    }
+    
+    .alert-info {
+        background-color: var(--light-blue);
+        border-color: var(--primary-blue);
+        color: var(--dark-blue);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6 text-center">Formulaire d'inscription</h1>
-
-    <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-
-        {% for field in form %}
-            <div class="flex flex-col">
-                <label class="label">
-                    <span class="label-text font-medium">{{ field.label }}</span>
-                </label>
-                {{ field }}
-                {% if field.errors %}
-                    <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
-
-        <div class="md:col-span-2">
-            <button type="submit" class="btn btn-primary w-full">Soumettre</button>
-        </div>
-    </form>
+<div class="wave-bg text-white text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold mb-3">Formulaire d'Inscription au Concours</h1>
+        <p class="lead">Remplissez soigneusement tous les champs requis</p>
+    </div>
 </div>
+
+<div class="container">
+    <div class="form-container">
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Information :</strong> Les champs marqués d'un astérisque (*) sont obligatoires.
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data" id="inscriptionForm">
+            {% csrf_token %}
+            
+            <!-- Informations Personnelles -->
+            <h3 class="section-title">
+                <i class="fas fa-user me-2"></i>Informations Personnelles
+            </h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="{{ form.nom.id_for_label }}" class="form-label required-field">Nom</label>
+                    {{ form.nom }}
+                    {% if form.nom.errors %}
+                        <div class="text-danger small">{{ form.nom.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.prenom.id_for_label }}" class="form-label required-field">Prénom</label>
+                    {{ form.prenom }}
+                    {% if form.prenom.errors %}
+                        <div class="text-danger small">{{ form.prenom.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.email.id_for_label }}" class="form-label required-field">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.niveauEtude.id_for_label }}" class="form-label required-field">Niveau d'études</label>
+                    {{ form.niveauEtude }}
+                    {% if form.niveauEtude.errors %}
+                        <div class="text-danger small">{{ form.niveauEtude.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Informations Académiques -->
+            <h3 class="section-title">
+                <i class="fas fa-graduation-cap me-2"></i>Informations Académiques
+            </h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="{{ form.etablissementOrigine.id_for_label }}" class="form-label required-field">Établissement d'origine</label>
+                    {{ form.etablissementOrigine }}
+                    {% if form.etablissementOrigine.errors %}
+                        <div class="text-danger small">{{ form.etablissementOrigine.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.concoursSouhaiter.id_for_label }}" class="form-label required-field">Concours souhaité</label>
+                    {{ form.concoursSouhaiter }}
+                    {% if form.concoursSouhaiter.errors %}
+                        <div class="text-danger small">{{ form.concoursSouhaiter.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Documents à Télécharger -->
+            <h3 class="section-title">
+                <i class="fas fa-file-upload me-2"></i>Documents à Télécharger
+            </h3>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label required-field">Photo d'identité</label>
+                    <label for="{{ form.photo.id_for_label }}" class="file-upload-label">
+                        <i class="fas fa-camera"></i>
+                        <div>Cliquez pour télécharger votre photo</div>
+                        <small class="text-muted">Format : JPG, PNG (Max 2MB)</small>
+                        <div class="file-name" id="photo-name"></div>
+                    </label>
+                    {{ form.photo }}
+                    {% if form.photo.errors %}
+                        <div class="text-danger small mt-2">{{ form.photo.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label required-field">Extrait de naissance</label>
+                    <label for="{{ form.extraitNaissance.id_for_label }}" class="file-upload-label">
+                        <i class="fas fa-file-alt"></i>
+                        <div>Cliquez pour télécharger</div>
+                        <small class="text-muted">Format : PDF (Max 5MB)</small>
+                        <div class="file-name" id="extrait-name"></div>
+                    </label>
+                    {{ form.extraitNaissance }}
+                    {% if form.extraitNaissance.errors %}
+                        <div class="text-danger small mt-2">{{ form.extraitNaissance.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label required-field">Certificat de nationalité</label>
+                    <label for="{{ form.certificatNationalite.id_for_label }}" class="file-upload-label">
+                        <i class="fas fa-id-card"></i>
+                        <div>Cliquez pour télécharger</div>
+                        <small class="text-muted">Format : PDF (Max 5MB)</small>
+                        <div class="file-name" id="certificat-name"></div>
+                    </label>
+                    {{ form.certificatNationalite }}
+                    {% if form.certificatNationalite.errors %}
+                        <div class="text-danger small mt-2">{{ form.certificatNationalite.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label required-field">Diplôme</label>
+                    <label for="{{ form.diplome.id_for_label }}" class="file-upload-label">
+                        <i class="fas fa-certificate"></i>
+                        <div>Cliquez pour télécharger</div>
+                        <small class="text-muted">Format : PDF (Max 5MB)</small>
+                        <div class="file-name" id="diplome-name"></div>
+                    </label>
+                    {{ form.diplome }}
+                    {% if form.diplome.errors %}
+                        <div class="text-danger small mt-2">{{ form.diplome.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-12">
+                    <label class="form-label required-field">Lettre de motivation</label>
+                    <label for="{{ form.lettreMotivation.id_for_label }}" class="file-upload-label">
+                        <i class="fas fa-envelope"></i>
+                        <div>Cliquez pour télécharger</div>
+                        <small class="text-muted">Format : PDF (Max 5MB)</small>
+                        <div class="file-name" id="lettre-name"></div>
+                    </label>
+                    {{ form.lettreMotivation }}
+                    {% if form.lettreMotivation.errors %}
+                        <div class="text-danger small mt-2">{{ form.lettreMotivation.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-paper-plane me-2"></i>Soumettre mon inscription
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Display file names when selected
+    const fileInputs = {
+        '{{ form.photo.id_for_label }}': 'photo-name',
+        '{{ form.extraitNaissance.id_for_label }}': 'extrait-name',
+        '{{ form.certificatNationalite.id_for_label }}': 'certificat-name',
+        '{{ form.diplome.id_for_label }}': 'diplome-name',
+        '{{ form.lettreMotivation.id_for_label }}': 'lettre-name'
+    };
+    
+    for (const [inputId, nameId] of Object.entries(fileInputs)) {
+        document.getElementById(inputId)?.addEventListener('change', function() {
+            const fileName = this.files[0]?.name || '';
+            const nameElement = document.getElementById(nameId);
+            if (nameElement) {
+                nameElement.textContent = fileName ? `📎 ${fileName}` : '';
+            }
+        });
+    }
+    
+    // Form validation
+    document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
+        const requiredInputs = this.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredInputs.forEach(input => {
+            if (!input.value) {
+                isValid = false;
+                input.classList.add('is-invalid');
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+        
+        if (!isValid) {
+            e.preventDefault();
+            alert('Veuillez remplir tous les champs obligatoires.');
+        }
+    });
+</script>
 {% endblock %}

@@ -1,123 +1,210 @@
 {% extends 'base.html' %}
-{% block body_class %}no-wave{% endblock %}
-{% block title %}Confirmation d'inscription{% endblock %}
+{% block body_class %}{% endblock %}
+{% block title %}Confirmation d'inscription - ESATIC CONCOURS{% endblock %}
 
-{% block content %}
+{% block extra_css %}
 <style>
-    /* Confirmation Container */
-    .form-container {
+    .success-container {
         background-color: white;
         border-radius: 15px;
-        padding: 40px;
+        padding: 50px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        margin-top: 30px;
+        margin-top: 50px;
         margin-bottom: 50px;
     }
     
-    /* Confirmation Icon */
-    .confirmation-icon {
-        width: 100px;
-        height: 100px;
-        background-color: var(--success-color);
+    .success-icon {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 3rem;
-        margin: 0 auto 20px;
-        animation: pulse 2s infinite;
+        font-size: 4rem;
+        margin: 0 auto 30px;
+        animation: scaleIn 0.5s ease-out;
     }
     
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-    
-    /* Alert */
-    .alert-success {
-        background-color: rgba(39, 174, 96, 0.1);
-        border-color: rgba(39, 174, 96, 0.2);
-        color: var(--success-color);
-    }
-    
-    .alert-info {
-        background-color: rgba(52, 152, 219, 0.1);
-        border-color: rgba(52, 152, 219, 0.2);
-        color: var(--primary-color);
-    }
-    
-    /* Badge */
-    .badge {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-        border-radius: 20px;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .form-container {
-            padding: 20px;
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+            opacity: 0;
         }
-        
-        .confirmation-icon {
-            width: 80px;
-            height: 80px;
-            font-size: 2.5rem;
+        to {
+            transform: scale(1);
+            opacity: 1;
         }
+    }
+    
+    .info-box {
+        background-color: var(--light-blue);
+        border-left: 4px solid var(--primary-blue);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    
+    .detail-row {
+        padding: 15px;
+        border-bottom: 1px solid #E3F2FD;
+    }
+    
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+    
+    .detail-label {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+    
+    .badge-numero {
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    
+    .action-button {
+        min-width: 200px;
     }
 </style>
+{% endblock %}
 
+{% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="form-container text-center">
-                <div class="mb-4">
-                    <div class="confirmation-icon">
+        <div class="col-lg-10">
+            <div class="success-container">
+                <!-- Success Icon -->
+                <div class="text-center">
+                    <div class="success-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <h3 class="fw-bold mb-3">Félicitations !</h3>
-                    <div class="alert alert-success">
-                        <h5 class="mb-0">Votre inscription a été enregistrée avec succès!</h5>
-                    </div>
+                    <h2 class="fw-bold mb-3" style="color: var(--primary-blue);">
+                        Félicitations, {{ inscription.prenom }} {{ inscription.nom }} !
+                    </h2>
+                    <p class="lead text-muted mb-4">Votre inscription a été enregistrée avec succès</p>
                 </div>
                 
-               <!-- Dans la section récapitulatif -->
-<div class="row">
-    <div class="col-md-6 text-md-start">
-        <p class="mb-2"><strong>Nom:</strong> {{ inscription.nom }}</p>
-        <p class="mb-2"><strong>Prénom:</strong> {{ inscription.prenom }}</p>
-        <p class="mb-2"><strong>Email:</strong> {{ inscription.email }}</p>
-        <p class="mb-2"><strong>Établissement d'origine:</strong> {{ inscription.etablissementOrigine }}</p>
-    </div>
-    <div class="col-md-6 text-md-start">
-        <p class="mb-2"><strong>Concours:</strong> {{ inscription.get_concoursSouhaiter_display }}</p>
-        <p class="mb-2"><strong>Niveau d'études:</strong> {{ inscription.niveauEtude }}</p>
-        <p class="mb-2"><strong>Numéro d'inscription:</strong> <span class="badge bg-primary">{{ inscription.numero_inscription }}</span></p>
-        <p class="mb-2"><strong>Date d'inscription:</strong> {{ inscription.date_inscription|date:"d/m/Y H:i" }}</p>
-    </div>
-</div>
+                <!-- Registration Number -->
+                <div class="text-center mb-4">
+                    <p class="mb-2">Votre numéro d'inscription :</p>
+                    <span class="badge-numero">{{ inscription.numero_inscription }}</span>
                 </div>
                 
-                <div class="alert alert-info mb-4">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-envelope fs-4 me-3"></i>
-                        <div class="text-start">
-                            <h6 class="mb-1">Un email de confirmation a été envoyé à votre adresse</h6>
-                            <p class="mb-0">{{ candidat.email }}</p>
+                <!-- Important Notice -->
+                <div class="info-box">
+                    <div class="d-flex align-items-start">
+                        <i class="fas fa-envelope fa-2x me-3" style="color: var(--primary-blue);"></i>
+                        <div>
+                            <h5 class="mb-2">Email de confirmation envoyé</h5>
+                            <p class="mb-0">
+                                Un email de confirmation contenant votre convocation et tous les détails 
+                                importants a été envoyé à <strong>{{ inscription.email }}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="mb-4">
-                   
-                    
+                <!-- Registration Details -->
+                <div class="card border-0 shadow-sm my-4">
+                    <div class="card-header" style="background-color: var(--primary-blue); color: white;">
+                        <h5 class="mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>Récapitulatif de votre inscription
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-row">
+                                    <div class="detail-label">Nom complet</div>
+                                    <div>{{ inscription.nom }} {{ inscription.prenom }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Email</div>
+                                    <div>{{ inscription.email }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Niveau d'études</div>
+                                    <div>{{ inscription.niveauEtude }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-row">
+                                    <div class="detail-label">Concours souhaité</div>
+                                    <div>{{ inscription.get_concoursSouhaiter_display }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Établissement d'origine</div>
+                                    <div>{{ inscription.etablissementOrigine }}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Date d'inscription</div>
+                                    <div>{{ inscription.date_inscription|date:"d/m/Y à H:i" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="mt-4 pt-3 border-top">
-                    <a href="{% url 'accueil' %}" class="btn btn-outline-primary px-4 py-2">
-                        <i class="fas fa-home me-2"></i>Retour à l'accueil
+                <!-- Next Steps -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-3" style="color: var(--primary-blue);">
+                            <i class="fas fa-list-check me-2"></i>Prochaines étapes
+                        </h5>
+                        <ol class="mb-0">
+                            <li class="mb-2">
+                                <strong>Vérifiez votre email</strong> : consultez votre boîte de réception 
+                                (et vos spams) pour l'email de confirmation
+                            </li>
+                            <li class="mb-2">
+                                <strong>Téléchargez votre reçu</strong> : conservez une copie de votre 
+                                reçu d'inscription en cliquant sur le bouton ci-dessous
+                            </li>
+                            <li class="mb-2">
+                                <strong>Préparez-vous pour le concours</strong> : les épreuves écrites 
+                                auront lieu le <strong>15 août 2025</strong>
+                            </li>
+                            <li>
+                                <strong>Surveillez vos emails</strong> : nous vous enverrons votre 
+                                convocation quelques jours avant les épreuves
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="row g-3 text-center">
+                    <div class="col-md-4">
+                        <a href="{% url 'telecharger_recu' inscription.id %}" class="btn btn-primary w-100 action-button">
+                            <i class="fas fa-file-pdf me-2"></i>Télécharger le reçu
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'telecharger_convocation' inscription.id %}" class="btn btn-outline-primary w-100 action-button">
+                            <i class="fas fa-envelope me-2"></i>Télécharger la convocation
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'accueil' %}" class="btn btn-outline-secondary w-100 action-button">
+                            <i class="fas fa-home me-2"></i>Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Support -->
+                <div class="text-center mt-5 pt-4 border-top">
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-question-circle me-2"></i>Besoin d'aide ?
+                    </p>
+                    <a href="{% url 'contact' %}" class="btn btn-link">
+                        Contactez-nous
                     </a>
                 </div>
             </div>
@@ -126,18 +213,20 @@
 </div>
 
 <script>
-    // Animation de la confirmation
+    // Animation on load
     document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.form-container > *');
+        const elements = document.querySelectorAll('.success-container > *');
         elements.forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.5s ease ' + (index * 0.2) + 's';
-            
-            setTimeout(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, 100);
+            if (!el.classList.contains('success-icon')) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.5s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 300 + (index * 100));
+            }
         });
     });
 </script>

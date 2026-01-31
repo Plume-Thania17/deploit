@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'inscription - ESATIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #64B5F6, #1976D2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .badge {
+            background-color: #64B5F6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .info-box {
+            background-color: #E3F2FD;
+            border-left: 4px solid #64B5F6;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .info-table td {
+            padding: 10px;
+            border-bottom: 1px solid #E3F2FD;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 40%;
+            color: #1976D2;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #64B5F6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #263238;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .checklist {
+            background-color: #F5F9FC;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .checklist-item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #BBDEFB;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #27AE60;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="success-icon">✓</div>
+            <h1>Confirmation d'inscription au concours ESATIC</h1>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <p>Bonjour <strong>{{ inscription.prenom }} {{ inscription.nom }}</strong>,</p>
+            
+            <p>Nous avons le plaisir de vous confirmer que votre inscription au concours d'entrée à l'ESATIC a été enregistrée avec succès.</p>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <p><strong>Votre numéro d'inscription :</strong></p>
+                <div class="badge">{{ inscription.numero_inscription }}</div>
+            </div>
+            
+            <div class="info-box">
+                <strong>⚠️ Important :</strong> Conservez précieusement ce numéro d'inscription. Il vous sera demandé le jour du concours.
+            </div>
+            
+            <!-- Informations personnelles -->
+            <h3 style="color: #1976D2;">📋 Récapitulatif de votre inscription</h3>
+            <table class="info-table">
+                <tr>
+                    <td>Nom et Prénom</td>
+                    <td>{{ inscription.nom }} {{ inscription.prenom }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ inscription.email }}</td>
+                </tr>
+                <tr>
+                    <td>Concours</td>
+                    <td>{{ inscription.get_concoursSouhaiter_display }}</td>
+                </tr>
+                <tr>
+                    <td>Niveau d'études</td>
+                    <td>{{ inscription.niveauEtude }}</td>
+                </tr>
+                <tr>
+                    <td>Établissement</td>
+                    <td>{{ inscription.etablissementOrigine }}</td>
+                </tr>
+                <tr>
+                    <td>Date d'inscription</td>
+                    <td>{{ inscription.date_inscription|date:"d/m/Y à H:i" }}</td>
+                </tr>
+            </table>
+            
+            <!-- Informations sur le concours -->
+            <h3 style="color: #1976D2;">📅 Informations sur le concours</h3>
+            <table class="info-table">
+                <tr>
+                    <td>Date des épreuves</td>
+                    <td><strong>{{ date_concours }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Heure de convocation</td>
+                    <td><strong>{{ heure_concours }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Lieu</td>
+                    <td>{{ lieu_concours }}</td>
+                </tr>
+            </table>
+            
+            <!-- Documents à apporter -->
+            <h3 style="color: #1976D2;">📦 Documents à apporter le jour du concours</h3>
+            <div class="checklist">
+                <div class="checklist-item">✓ Cette convocation (en pièce jointe)</div>
+                <div class="checklist-item">✓ Une pièce d'identité valide</div>
+                <div class="checklist-item">✓ Deux stylos à bille (bleu ou noir)</div>
+                <div class="checklist-item">✓ Matériel de géométrie (règle, équerre, rapporteur)</div>
+                <div class="checklist-item">✓ Calculatrice scientifique non programmable</div>
+            </div>
+            
+            <!-- Prochaines étapes -->
+            <h3 style="color: #1976D2;">🎯 Prochaines étapes</h3>
+            <ol>
+                <li><strong>Téléchargez votre convocation</strong> : elle est jointe à cet email</li>
+                <li><strong>Préparez-vous</strong> : révisez les matières principales du concours</li>
+                <li><strong>Présentez-vous</strong> : arrivez 30 minutes avant l'heure de convocation</li>
+            </ol>
+            
+            <div class="info-box">
+                <strong>💡 Conseil :</strong> Nous vous recommandons de repérer le lieu du concours quelques jours avant la date des épreuves pour éviter tout retard le jour J.
+            </div>
+            
+            <p style="margin-top: 30px;">Nous vous souhaitons plein succès dans vos préparatifs et le jour du concours !</p>
+            
+            <p style="margin-top: 20px;">
+                Cordialement,<br>
+                <strong>L'équipe ESATIC</strong>
+            </p>
+            
+            <hr style="border: none; border-top: 1px solid #E3F2FD; margin: 30px 0;">
+            
+            <p style="font-size: 12px; color: #607D8B;">
+                <strong>Besoin d'aide ?</strong><br>
+                N'hésitez pas à nous contacter :<br>
+                📧 Email: concours@esatic.ci<br>
+                📞 Téléphone: +225 27 22 48 38 00
+            </p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p style="margin: 5px 0;"><strong>ESATIC</strong></p>
+            <p style="margin: 5px 0;">École Supérieure Africaine des Technologies de l'Information et de la Communication</p>
+            <p style="margin: 5px 0;">Route de Bingerville, Abidjan, Côte d'Ivoire</p>
+            <p style="margin: 5px 0;">© 2025 ESATIC - Tous droits réservés</p>
+        </div>
+    </div>
+</body>
+</html>

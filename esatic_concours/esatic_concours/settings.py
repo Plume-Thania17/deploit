@@ -80,7 +80,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'esatic_concours.wsgi.application'
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'concours@esatic.ci'
+CONTACT_EMAIL = 'info@esatic.ci'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
